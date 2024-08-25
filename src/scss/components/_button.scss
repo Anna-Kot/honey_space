@@ -3,13 +3,21 @@
 .button {
   display: inline-block;
   background-color: $orange;
+  // background: linear-gradient(
+  //   to bottom,
+  //   rgba(0, 87, 184, 1) 0%,
+  //   rgba(74, 122, 192, 1) 40%,
+  //   rgba(148, 157, 120, 1) 60%,
+  //   rgba(202, 193, 48, 1) 75%,
+  //   rgba(255, 215, 0, 1) 100%
+  // );
   border-radius: 30px;
   padding: 10px 20px;
   min-width: 100px;
   text-align: center;
   cursor: pointer;
   transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
-  border: 1px solid transparent;
+  // border: 1px solid transparent;
   @include noselect();
 
   &,
@@ -25,11 +33,12 @@
   }
 
   &:hover {
-    background-color: darken($orange, 8%);
+    background: darken($orange, 12%);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   }
 
   &:active {
-    background-color: darken($orange, 12%);
+    background: darken($orange, 12%);
     transform: translateY(1px);
   }
 
@@ -55,7 +64,7 @@
 
   &--outline {
     background-color: #fff;
-    border-color: $orange;
+    border: 1px solid $orange;
     &,
     span {
       color: $orange;
@@ -146,3 +155,6 @@
     }
   }
 }
+// .button--add {
+//   background: #0057b8;
+// }

@@ -1,0 +1,112 @@
+[
+  {
+    "id": 0,
+    "imageUrl": "https://i.postimg.cc/SQ9MsHyH/honey-may.png",
+    "title": "Травневий мед",
+    "types": [0, 1],
+    "sizes": [250, 700, 1400],
+    "price": 803,
+    "category": 0,
+    "rating": 4
+  },
+  {
+    "id": 1,
+    "imageUrl": "https://i.postimg.cc/Z5w92Scv/honey-buckwheat.png",
+    "title": "Гречаний мед",
+    "types": [0, 1],
+    "sizes": [250, 700, 1400],
+    "price": 245,
+    "category": 0,
+    "rating": 6
+  },
+  {
+    "id": 2,
+    "imageUrl": "https://i.postimg.cc/x8FfgfY9/image-9-1.png",
+    "title": "Лісовий мед",
+    "types": [0, 1],
+    "sizes": [250, 700, 1400],
+    "price": 275,
+    "category": 2,
+    "rating": 2
+  },
+  {
+    "id": 3,
+    "imageUrl": "https://i.postimg.cc/1tPLqLkM/IMG-1373-1.png",
+    "title": "Горішки з медом (мигдаль)",
+    "types": [0, 1],
+    "sizes": [130, 225, 300],
+    "price": 415,
+    "category": 3,
+    "rating": 8
+  },
+  {
+    "id": 4,
+    "imageUrl": "https://i.postimg.cc/g2xdcbpZ/honey-hazelnut.png",
+    "title": "Горішки з медом (фундук)",
+    "types": [0],
+    "sizes": [130, 225, 300],
+    "price": 580,
+    "category": 2,
+    "rating": 2
+  },
+  {
+    "id": 5,
+    "imageUrl": "https://i.postimg.cc/qqmV0jZw/honey-cashew.png",
+    "title": "Горішки з медом (кеш'ю)",
+    "types": [0],
+    "sizes": [130, 225, 300],
+    "price": 675,
+    "category": 1,
+    "rating": 9
+  },
+  {
+    "id": 6,
+    "imageUrl": "http://www.silskivisti.kiev.ua/19474/pic/Bee-Candles_01.jpg",
+    "title": "Воскова свічка",
+    "types": [0, 1],
+    "sizes": [9, 14],
+    "price": 450,
+    "category": 4,
+    "rating": 10
+  },
+  {
+    "id": 7,
+    "imageUrl": "http://surl.li/bhzcrw",
+    "title": "Сироп Імунний",
+    "types": [0],
+    "sizes": [200, 400],
+    "price": 395,
+    "category": 5,
+    "rating": 9
+  },
+  {
+    "id": 8,
+    "imageUrl": "https://images.prom.ua/2295184126_nastoyanka-voskovoyi-moli.jpg",
+    "title": "Настойка воскової молі",
+    "types": [0],
+    "sizes": [25, 50, 100],
+    "price": 285,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 9,
+    "imageUrl": "https://bishofit.com.ua/images/ab__webp/thumbnails/1200/1200/detailed/4/n-ka-propolisa_png.webp",
+    "title": "Настойка прополюса",
+    "types": [0],
+    "sizes": [25, 50, 100],
+    "price": 285,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 10,
+    "imageUrl": "https://i.postimg.cc/bv47wZgX/honeycombs.png",
+    "title": "Соти",
+    "types": [1],
+    "sizes": [250, 500, 1000],
+    "price": 285,
+    "category": 5,
+    "rating": 6
+  }
+]
