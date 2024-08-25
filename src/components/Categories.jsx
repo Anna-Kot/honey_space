@@ -7,7 +7,6 @@ const Categories = () => {
 
   const handlerSelectCategory = (index) => {
     setActiveIndex(index);
-    // console.log(activeIndex);
   };
   return (
     <div className='categories'>

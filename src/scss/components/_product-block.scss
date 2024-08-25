@@ -1,19 +1,26 @@
 @import './../variables';
 
 .product-block {
-  width: 280px;
+  width: 288px;
   text-align: center;
   margin-bottom: 65px;
+  padding: 4px;
 
   &:not(:nth-of-type(4n)) {
-    margin-right: 35px;
+    // margin-right: 35px;
+  }
+  &:nth-child(odd) {
+    // background-color: #74ccf7;
+    background-color: #c7edff;
+  }
+  &:nth-child(even) {
+    // background-color: #eff0b9;
+    background-color: #eeeec0;
   }
 
   &__image {
-    // width: 260px;
-    // max-height: 260px;
-    // max-width: 260px;
     height: 260px;
+    max-width: 280px;
   }
 
   &__title {

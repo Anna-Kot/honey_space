@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './../scss/app.scss';
+import { sortingList } from './../helpers/consts';
 
 const Sort = () => {
+  const [sortType, setSortType] = useState(0);
+  const handleSortingType = (index) => {
+    setSortType(index);
+  };
   return (
     <div className='sort'>
       <div className='sort__label'>
@@ -18,13 +23,19 @@ const Sort = () => {
           />
         </svg>
         <b>Сортувати за:</b>
-        <span>популярністю</span>
+        <span>{sortingList[sortType]}</span>
       </div>
       <div className='sort__popup'>
         <ul>
-          <li className='active'>популярністю</li>
-          <li>ціні</li>
-          <li>алфавіту</li>
+          {sortingList.map((item, i) => (
+            <li
+              key={i}
+              onClick={() => handleSortingType(i)}
+              className={sortType === i ? 'active' : ''}
+            >
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
     </div>

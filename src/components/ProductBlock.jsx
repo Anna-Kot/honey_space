@@ -2,24 +2,32 @@ import React from 'react';
 import { useState } from 'react';
 // import logo from '../assets';
 
-const ProductBlock = ({ title, price, imageUrl }) => {
+const ProductBlock = ({ title, price, imageUrl, sizes, typeUnits, types }) => {
   const [count, setCount] = useState(0);
   const onClickAdd = () => {
     setCount(count + 1);
+  };
+
+  const [activeSizeIndex, setActiveSizeIndex] = useState(0);
+  const handlerActiveSize = (index) => {
+    setActiveSizeIndex(index);
   };
   return (
     <div className='product-block'>
       <img className='product-block__image' src={imageUrl} alt='Honey' />
       <h4 className='product-block__title'>{title}</h4>
       <div className='product-block__selector'>
+        <div> Тип пакування: {types}</div>
         <ul>
-          <li className='active'>скло</li>
-          <li>пластик</li>
-        </ul>
-        <ul>
-          <li className='active'>420 мл</li>
-          <li>0.5 л</li>
-          <li>1 л</li>
+          {sizes.map((size, i) => (
+            <li
+              key={i}
+              className={activeSizeIndex === i ? 'active' : ''}
+              onClick={() => handlerActiveSize(i)}
+            >
+              {size} {typeUnits}
+            </li>
+          ))}
         </ul>
       </div>
       <div className='product-block__bottom'>
