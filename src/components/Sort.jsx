@@ -4,8 +4,11 @@ import { sortingList } from './../helpers/consts';
 
 const Sort = () => {
   const [sortType, setSortType] = useState(0);
+  const [openPopup, setOpenPopup] = useState(false);
+
   const handleSortingType = (index) => {
     setSortType(index);
+    setOpenPopup(false);
   };
   return (
     <div className='sort'>
@@ -23,21 +26,23 @@ const Sort = () => {
           />
         </svg>
         <b>Сортувати за:</b>
-        <span>{sortingList[sortType]}</span>
+        <span onClick={() => setOpenPopup(!openPopup)}>{sortingList[sortType]}</span>
       </div>
-      <div className='sort__popup'>
-        <ul>
-          {sortingList.map((item, i) => (
-            <li
-              key={i}
-              onClick={() => handleSortingType(i)}
-              className={sortType === i ? 'active' : ''}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {openPopup && (
+        <div className='sort__popup'>
+          <ul>
+            {sortingList.map((item, i) => (
+              <li
+                key={i}
+                onClick={() => handleSortingType(i)}
+                className={sortType === i ? 'active' : ''}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
