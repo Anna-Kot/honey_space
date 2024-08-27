@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import './../scss/app.scss';
 import { sortingList } from './../helpers/consts';
 
-const Sort = () => {
-  const [sortType, setSortType] = useState(0);
+const Sort = ({ setSortType, sortType }) => {
   const [openPopup, setOpenPopup] = useState(false);
 
-  const handleSortingType = (index) => {
-    setSortType(index);
+  const handleSortingType = (i) => {
+    setSortType(i);
     setOpenPopup(false);
+    // setSortType();
   };
   return (
     <div className='sort'>
@@ -26,18 +26,18 @@ const Sort = () => {
           />
         </svg>
         <b>Сортувати за:</b>
-        <span onClick={() => setOpenPopup(!openPopup)}>{sortingList[sortType]}</span>
+        <span onClick={() => setOpenPopup(!openPopup)}>{sortType.name}</span>
       </div>
       {openPopup && (
         <div className='sort__popup'>
           <ul>
-            {sortingList.map((item, i) => (
+            {sortingList.map((obj, i) => (
               <li
                 key={i}
-                onClick={() => handleSortingType(i)}
-                className={sortType === i ? 'active' : ''}
+                onClick={() => handleSortingType(obj)}
+                className={sortType.sortProperty === obj.sortProperty ? 'active' : ''}
               >
-                {item}
+                {obj.name}
               </li>
             ))}
           </ul>

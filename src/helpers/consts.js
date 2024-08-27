@@ -1,6 +1,10 @@
 export const categoriesList = ['Всі', 'Мед', 'Горішки в меду', 'Соти', 'Свічки', 'Настоянки'];
 
-export const sortingList = ['популярністю', 'ціною', 'алфавітом'];
+export const sortingList = [
+  { name: 'популярністю', sortProperty: 'rating' },
+  { name: 'ціною', sortProperty: 'priceMin' },
+  { name: 'алфавітом', sortProperty: 'title' },
+];
 
 // export const categoriesList = [
 //     { id: 0, title: 'Всі' },

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 // import logo from '../assets';
 
-const ProductBlock = ({ title, priseList, price, imageUrl, sizes, typeUnits, types }) => {
+const ProductBlock = ({ title, priceList, price, imageUrl, sizes, typeUnits, types }) => {
   const [count, setCount] = useState(0);
   const onClickAdd = () => {
     setCount(count + 1);
@@ -19,7 +19,7 @@ const ProductBlock = ({ title, priseList, price, imageUrl, sizes, typeUnits, typ
       <div className='product-block__selector'>
         <p className='pack-type'> Тип пакування: {types}</p>
         <ul>
-          {priseList.sizes.map((size, i) => (
+          {priceList.sizes.map((size, i) => (
             <li
               key={i}
               className={activeSizeIndex === i ? 'active' : ''}
@@ -31,7 +31,7 @@ const ProductBlock = ({ title, priseList, price, imageUrl, sizes, typeUnits, typ
         </ul>
       </div>
       <div className='product-block__bottom'>
-        <div className='product-block__price'>{priseList.price[activeSizeIndex]} грн</div>
+        <div className='product-block__price'>{priceList.price[activeSizeIndex]} грн</div>
         <button className='button button--outline button--add' onClick={onClickAdd}>
           <svg
             width='12'
