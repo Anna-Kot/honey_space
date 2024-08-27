@@ -18,9 +18,9 @@ body {
   @media (max-width: 1065px) {
     width: calc(100vw - 20px);
   }
-  @media (max-width: 560px) {
-    width: calc(100vw - 100px);
-  }
+  // @media (max-width: 560px) {
+  //   width: calc(100vw - 100px);
+  // }
 }
 
 .content {
@@ -90,6 +90,16 @@ body {
 }
 
 .cart {
+  width: 77%;
+  margin: 0 auto;
+
+  @media (max-width: 1064px) {
+    width: 90%;
+  }
+  @media (max-width: 768px) {
+    width: 97%;
+  }
+
   &__top {
     display: flex;
     justify-content: space-between;
@@ -152,11 +162,24 @@ body {
     padding-top: 30px;
     margin-top: 30px;
 
+    @media (max-width: 568px) {
+      padding-top: 15px;
+      margin-top: 15px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+    }
+
     &-img {
       display: flex;
       align-items: center;
       margin-right: 15px;
       width: 10%;
+
+      @media (max-width: 568px) {
+        width: 100%;
+        grid-column: span 1;
+      }
 
       img {
         width: 80px;
@@ -169,17 +192,30 @@ body {
       flex-direction: column;
       justify-content: center;
       width: 40%;
+      @media (max-width: 568px) {
+        width: 100%;
+        grid-column: span 2;
+      }
 
       h3 {
         font-weight: bold;
         font-size: 22px;
         line-height: 27px;
         letter-spacing: 0.01em;
+
+        @media (max-width: 768px) {
+          font-size: 20px;
+          line-height: 25px;
+        }
       }
 
       p {
         font-size: 18px;
         color: #8d8d8d;
+
+        @media (max-width: 768px) {
+          font-size: 16px;
+        }
       }
     }
 
@@ -188,6 +224,11 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 13%;
+
+      @media (max-width: 568px) {
+        width: 100%;
+        grid-column: span 1;
+      }
 
       &-minus {
         svg {
@@ -199,6 +240,10 @@ body {
 
       b {
         font-size: 22px;
+
+        @media (max-width: 768px) {
+          font-size: 20px;
+        }
       }
     }
 
@@ -208,10 +253,19 @@ body {
       justify-content: center;
       width: 33%;
 
+      @media (max-width: 568px) {
+        width: 100%;
+        grid-column: span 1;
+      }
+
       b {
         font-weight: bold;
         font-size: 22px;
         letter-spacing: 0.01em;
+
+        @media (max-width: 768px) {
+          font-size: 20px;
+        }
       }
     }
 
@@ -220,6 +274,11 @@ body {
       align-items: center;
       justify-content: flex-end;
       width: 4%;
+
+      @media (max-width: 568px) {
+        width: 100%;
+        grid-column: span 1;
+      }
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
@@ -254,6 +313,10 @@ body {
     &-details {
       display: flex;
       justify-content: space-between;
+
+      @media (max-width: 600px) {
+        flex-direction: column;
+      }
 
       span {
         font-size: 22px;
