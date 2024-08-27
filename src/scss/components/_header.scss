@@ -8,6 +8,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 540px) {
+      align-items: baseline;
+      flex-direction: column;
+      gap: 14px;
+    }
   }
 
   &__logo {

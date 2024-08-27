@@ -17,7 +17,7 @@ const ProductBlock = ({ title, priseList, price, imageUrl, sizes, typeUnits, typ
       <img className='product-block__image' src={imageUrl} alt='Honey' />
       <h4 className='product-block__title'>{title}</h4>
       <div className='product-block__selector'>
-        <div> Тип пакування: {types}</div>
+        <p className='pack-type'> Тип пакування: {types}</p>
         <ul>
           {priseList.sizes.map((size, i) => (
             <li
