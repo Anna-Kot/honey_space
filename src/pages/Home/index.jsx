@@ -15,8 +15,8 @@ const Home = ({ searchValue }) => {
   const [sortType, setSortType] = useState(sortingList[0]);
   const [categoryType, setCategoryType] = useState(0);
 
-  // console.log(categoryType, sortType);
-  // https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?sortBy=priceList.price[0]&order=desc&title=
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     setIsLoading(true);
     // fetch(
@@ -30,7 +30,7 @@ const Home = ({ searchValue }) => {
     //   `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?${sortCategory}${search}&sortBy=${sortType.sortProperty}&order=asc`,
     // )
     fetch(
-      `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?page=1&limit=3${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
+      `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?page=${currentPage}&limit=8&${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -38,8 +38,11 @@ const Home = ({ searchValue }) => {
         setItems(data);
         setIsLoading(false);
       });
-  }, [categoryType, sortType]);
+    window.scrollTo(0, 0);
+  }, [categoryType, sortType, currentPage]);
   console.log(items);
+  const pageCount = Math.ceil(items.length / 3);
+  console.log(pageCount);
   // const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
   const products = items
     .filter((obj) => {
@@ -55,12 +58,16 @@ const Home = ({ searchValue }) => {
   return (
     <div className='container'>
       <div className='content__top'>
-        <Categories onClickCategory={(i) => setCategoryType(i)} categoryType={categoryType} />
+        <Categories
+          onClickCategory={(i) => setCategoryType(i)}
+          categoryType={categoryType}
+          setCategoryType={setCategoryType}
+        />
         <Sort setSortType={setSortType} sortType={sortType} />
       </div>
       <h2 className='content__title'>Вся продукція</h2>
       <div className='content__items'>{isLoading ? skeletons : products}</div>
-      <Pagination />
+      <Pagination setCurrentPage={setCurrentPage} pageCount={pageCount} />
     </div>
   );
 };
