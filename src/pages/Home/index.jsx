@@ -34,15 +34,15 @@ const Home = ({ searchValue }) => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setItems(data);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
   }, [categoryType, sortType, currentPage]);
-  console.log(items);
+  // console.log(items);
   const pageCount = Math.ceil(items.length / 3);
-  console.log(pageCount);
+  // console.log(pageCount);
   // const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
   const products = items
     .filter((obj) => {

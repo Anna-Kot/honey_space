@@ -4,7 +4,7 @@ import './../scss/app.scss';
 import logo from '../assets/logo_honey.png';
 import Search from './Search';
 
-const Header = ({ searchValue, setSearchValue }) => {
+const Header = () => {
   return (
     <div className='header'>
       <div className='container'>
@@ -17,7 +17,7 @@ const Header = ({ searchValue, setSearchValue }) => {
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Search />
         <Link to='/cart'>
           <div className='header__cart'>
             <button href='/cart.html' className='button button--cart'>
