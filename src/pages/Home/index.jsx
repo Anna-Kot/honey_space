@@ -1,12 +1,14 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import Categories from '../../components/Categories';
 import Sort from '../../components/Sort';
 import ProductBlock from '../../components/ProductBlock';
 import Skeleton from '../../components/Skeleton';
 import Pagination from '../../components/Pagination';
+
 import { setCategoryId } from './../../redux/slices/filterSlice';
 
 const Home = ({ searchValue }) => {
@@ -16,7 +18,6 @@ const Home = ({ searchValue }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { categoryId, sortType } = useSelector((state) => state.filters);
-  // const sortType = useSelector((state) => state.filters.sortType);
 
   const dispatch = useDispatch();
 
@@ -32,14 +33,15 @@ const Home = ({ searchValue }) => {
     // fetch(
     //   `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?${sortCategory}${search}&sortBy=${sortType.sortProperty}&order=asc`,
     // )
-    fetch(
-      `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?page=${currentPage}&limit=8&${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setItems(data);
+
+    axios
+      .get(
+        `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?page=${currentPage}&limit=8&${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
+      )
+      .then((response) => {
+        setItems(response.data);
         setIsLoading(false);
+        console.log(response);
       });
     window.scrollTo(0, 0);
   }, [categoryId, sortType, currentPage]);
