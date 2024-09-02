@@ -2,13 +2,13 @@ import React from 'react';
 import './../scss/app.scss';
 import { categoriesList } from './../helpers/consts';
 
-const Categories = ({ categoryType, onClickCategory }) => {
+const Categories = ({ categoryId, onClickCategory }) => {
   return (
     <div className='categories'>
       <ul>
         {categoriesList.map((item, i) => (
           <li
-            className={categoryType === i ? 'active' : ''}
+            className={categoryId === i ? 'active' : ''}
             key={i}
             onClick={() => onClickCategory(i)}
           >

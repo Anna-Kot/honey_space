@@ -5,7 +5,7 @@ import { ThemeContext } from './../../App';
 
 const ThemesColor = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  console.log(theme);
+  // console.log(theme);
   return (
     <div className={styles.root}>
       <svg
