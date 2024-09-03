@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-// import logo from '../assets';
 
 const ProductBlock = ({ title, priceList, price, imageUrl, sizes, typeUnits, types }) => {
   const [count, setCount] = useState(0);

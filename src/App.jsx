@@ -1,6 +1,5 @@
 import { createContext, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-// import { useSelector, useDispatch } from 'react-redux';
 
 import Header from './components/Header';
 
@@ -12,8 +11,6 @@ import './scss/app.scss';
 
 export const SearchContext = createContext('');
 export const ThemeContext = createContext('');
-// console.log(SearchContext);
-// console.log(ThemeContext);
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
@@ -21,10 +18,7 @@ function App() {
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
-  // console.log(theme);
 
-  // const filter = useSelector((state) => state.filters.value);
-  // const dispatch = useDispatch();
   return (
     <div className='wrapper' style={{ backgroundColor: theme === 'dark' ? '#575555' : '#fff' }}>
       <SearchContext.Provider value={{ searchValue, setSearchValue }}>
