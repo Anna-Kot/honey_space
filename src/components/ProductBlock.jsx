@@ -1,13 +1,37 @@
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ProductBlock = ({ title, priceList, price, imageUrl, sizes, typeUnits, types }) => {
-  const [count, setCount] = useState(0);
+import { addItem } from '../redux/slices/cartSlice';
+
+const ProductBlock = ({ id, title, priceList, price, imageUrl, sizes, typeUnits, types }) => {
+  // const [count, setCount] = useState(0);
+  const [activeSizeIndex, setActiveSizeIndex] = useState(0);
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) =>
+    state.cart.items.find((obj) => obj.id === id && obj.index === activeSizeIndex),
+  );
+  const count = cartItem ? cartItem.count : 0;
+  console.log(cartItem);
   const onClickAdd = () => {
-    setCount(count + 1);
+    // setCount(count + 1);
+    let idCreate = `${id}_${activeSizeIndex}`;
+    console.log(idCreate);
+    const item = {
+      // id: `${id}-${activeSizeIndex}`,
+      id,
+      title,
+      index: activeSizeIndex,
+      price: priceList.price[activeSizeIndex],
+      size: priceList.sizes[activeSizeIndex],
+      imageUrl,
+      typeUnits,
+      count: 1,
+    };
+    console.log(item);
+    dispatch(addItem(item));
   };
 
-  const [activeSizeIndex, setActiveSizeIndex] = useState(0);
   const handlerActiveSize = (index) => {
     setActiveSizeIndex(index);
   };

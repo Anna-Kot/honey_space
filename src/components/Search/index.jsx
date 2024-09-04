@@ -7,7 +7,6 @@ const Search = () => {
   const [value, setValue] = useState('');
   const { setSearchValue } = useContext(SearchContext);
   const inputRef = useRef();
-  console.log(inputRef);
   const handleClearSearch = () => {
     setSearchValue('');
     setValue('');
@@ -17,8 +16,7 @@ const Search = () => {
   const updateSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
-      console.log('yes');
-    }, 1000),
+    }, 500),
     [],
   );
   const onChangeInput = (e) => {

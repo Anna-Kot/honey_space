@@ -1,29 +1,35 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import qs from 'qs';
 
 import Categories from '../../components/Categories';
 import Sort from '../../components/Sort';
 import ProductBlock from '../../components/ProductBlock';
 import Skeleton from '../../components/Skeleton';
 import Pagination from '../../components/Pagination';
+import { sortingList } from '../../helpers/consts';
 
-import { setCategoryId, setCurrentPage } from './../../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage, setFilters } from './../../redux/slices/filterSlice';
 
 const Home = ({ searchValue }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
+
+  const { categoryId, sortType, currentPage } = useSelector((state) => state.filters);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [checkItems, setCheckItems] = useState(true);
-
-  const { categoryId, sortType, currentPage } = useSelector((state) => state.filters);
-  const dispatch = useDispatch();
 
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
 
-  useEffect(() => {
+  const fetchProducts = () => {
     setIsLoading(true);
     const sortCategory = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `search=${searchValue.toLowerCase()}` : '';
@@ -36,15 +42,47 @@ const Home = ({ searchValue }) => {
         setItems(response.data);
         setIsLoading(false);
         setCheckItems(true);
-        console.log(response);
+        // console.log(response);
       })
       .catch((err) => {
         setIsLoading(false);
         setCheckItems(false);
-        console.log('not found');
       });
+  };
+
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sortType = sortingList.find((obj) => obj.sortProperty === params.sortProperty);
+      dispatch(
+        setFilters({
+          ...params,
+          sortType,
+        }),
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, currentPage, searchValue, checkItems]);
+    if (!isSearch.current) {
+      fetchProducts();
+    }
+    isSearch.current = false;
+  }, [categoryId, sortType.sortProperty, currentPage, searchValue, checkItems]);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sortType.sortProperty,
+        categoryId,
+        currentPage,
+      });
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [categoryId, sortType, currentPage]);
 
   const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
   // const products = items

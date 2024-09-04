@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './../scss/app.scss';
 import { sortingList } from './../helpers/consts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,12 +6,24 @@ import { setSortType } from './../redux/slices/filterSlice';
 
 const Sort = () => {
   const [openPopup, setOpenPopup] = useState(false);
+  const popupRef = useRef(null);
   const sortType = useSelector((state) => state.filters.sortType);
   const dispatch = useDispatch();
   const handleSortingType = (obj) => {
     dispatch(setSortType(obj));
     setOpenPopup(false);
   };
+  const handleClickOutside = (e) => {
+    if (popupRef.current && !popupRef.current.contains(e.target)) {
+      setOpenPopup(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   return (
     <div className='sort'>
       <div className='sort__label'>
@@ -28,10 +40,10 @@ const Sort = () => {
           />
         </svg>
         <b>Сортувати за:</b>
-        <span onClick={() => setOpenPopup(!openPopup)}>{sortType.name}</span>
+        <span onClick={() => setOpenPopup(true)}>{sortType.name}</span>
       </div>
       {openPopup && (
-        <div className='sort__popup'>
+        <div className='sort__popup' ref={popupRef}>
           <ul>
             {sortingList.map((obj, i) => (
               <li
