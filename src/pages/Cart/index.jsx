@@ -4,10 +4,12 @@ import CartItem from '../../components/CartItem';
 import { clearItems } from '../../redux/slices/cartSlice';
 
 const Cart = () => {
-  const { items, totalPrice } = useSelector((state) => state.cart);
+  const { items, totalPrice, totalCount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const handleClearCart = () => {
-    dispatch(clearItems(''));
+    if (window.confirm('Are you sure you want to clear?')) {
+      dispatch(clearItems(''));
+    }
   };
   console.log(items);
   return (
@@ -66,13 +68,15 @@ const Cart = () => {
         </div>
         <div className='cart__items'>
           {items.map((item) => (
-            <CartItem key={item.id + item.index} item={item} />
+            <CartItem key={item.id} item={item} />
           ))}
         </div>
         <div className='cart__bottom'>
           <div className='cart__bottom-details'>
             <span>
-              Кількість товару : <b>{items.length} шт.</b>
+              Кількість товару (різновидів) : <b>{items.length} </b>
+              <br />
+              Загальна кількість товару : <b>{totalCount} шт.</b>
             </span>
             <span>
               Сумма замовлення: <b>{totalPrice} ₴</b>

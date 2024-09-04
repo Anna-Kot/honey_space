@@ -5,21 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../redux/slices/cartSlice';
 
 const ProductBlock = ({ id, title, priceList, price, imageUrl, sizes, typeUnits, types }) => {
-  // const [count, setCount] = useState(0);
   const [activeSizeIndex, setActiveSizeIndex] = useState(0);
+  const idCreate = `${id}_${activeSizeIndex}`;
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id && obj.index === activeSizeIndex),
-  );
+  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === idCreate));
   const count = cartItem ? cartItem.count : 0;
-  console.log(cartItem);
+
   const onClickAdd = () => {
-    // setCount(count + 1);
-    let idCreate = `${id}_${activeSizeIndex}`;
     console.log(idCreate);
     const item = {
-      // id: `${id}-${activeSizeIndex}`,
-      id,
+      id: idCreate,
       title,
       index: activeSizeIndex,
       price: priceList.price[activeSizeIndex],
