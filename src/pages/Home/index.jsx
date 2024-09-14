@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import qs from 'qs';
 
 import Categories from '../../components/Categories';
@@ -12,55 +11,26 @@ import Pagination from '../../components/Pagination';
 import { sortingList } from '../../helpers/consts';
 
 import { setCategoryId, setCurrentPage, setFilters } from './../../redux/slices/filterSlice';
+import { fetchProducts } from '../../redux/slices/productsSlice';
 
 const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isSearch = useRef(false);
   const isMounted = useRef(false);
 
   const { categoryId, sortType, currentPage } = useSelector((state) => state.filters);
 
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [checkItems, setCheckItems] = useState(true);
-
+  const productsState = useSelector((state) => state.productsList);
+  const { items, status, typeError } = productsState;
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchProducts = async () => {
-    setIsLoading(true);
+  const getProducts = async () => {
     const sortCategory = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `search=${searchValue.toLowerCase()}` : '';
 
-    // await axios
-    //   .get(
-    //     `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?page=${currentPage}&${search}&limit=8&${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
-    //   )
-    //   .then((response) => {
-    //     setItems(response.data);
-    //     setIsLoading(false);
-    //     setCheckItems(true);
-    //     // console.log(response);
-    //   })
-    //   .catch((err) => {
-    //     setIsLoading(false);
-    //     setCheckItems(false);
-    //   });
-
-    try {
-      const response = await axios.get(
-        `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?page=${currentPage}&${search}&limit=8&${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
-      );
-      setItems(response.data);
-      setCheckItems(true);
-    } catch (err) {
-      // console.log(err);
-      setCheckItems(false);
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(fetchProducts({ sortCategory, search, currentPage, sortType }));
   };
 
   useEffect(() => {
@@ -73,17 +43,13 @@ const Home = ({ searchValue }) => {
           sortType,
         }),
       );
-      isSearch.current = true;
     }
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (!isSearch.current) {
-      fetchProducts();
-    }
-    isSearch.current = false;
-  }, [categoryId, sortType.sortProperty, currentPage, searchValue, checkItems]);
+    getProducts();
+  }, [categoryId, sortType.sortProperty, currentPage, searchValue]);
 
   useEffect(() => {
     if (isMounted.current) {
@@ -97,16 +63,9 @@ const Home = ({ searchValue }) => {
     isMounted.current = true;
   }, [categoryId, sortType, currentPage]);
 
-  const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
-  // const products = items
-  //   .filter((obj) => {
-  //     if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-  //       return true;
-  //     }
-  //     return false;
-  //   })
-  //   .map((obj) => <ProductBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
+  const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
+
   return (
     <div className='container'>
       <div className='content__top'>
@@ -114,10 +73,21 @@ const Home = ({ searchValue }) => {
         <Sort />
       </div>
       <h2 className='content__title'>Вся продукція</h2>
-      <div className='content__items'>
-        {isLoading ? skeletons : checkItems ? products : 'Not Found'}
-      </div>
-      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+      {status === 'error' ? (
+        typeError === '404' ? (
+          <div>Not Found</div>
+        ) : (
+          <>
+            <h2>Щось пішло не так</h2>
+            <p>На жаль, не вдалось отримати продутки</p>
+          </>
+        )
+      ) : (
+        <>
+          <div className='content__items'>{status === 'loading' ? skeletons : products}</div>
+          <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+        </>
+      )}
     </div>
   );
 };

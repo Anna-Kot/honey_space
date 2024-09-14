@@ -26,8 +26,6 @@ const cartSlice = createSlice({
       const { totalPrice, totalCount } = calculateTotals(state.items);
       state.totalPrice = totalPrice;
       state.totalCount = totalCount;
-      console.log(action);
-      console.log(state.totalCount);
     },
     minusItem(state, action) {
       const findItem = state.items.find((item) => item.id === action.payload.id);

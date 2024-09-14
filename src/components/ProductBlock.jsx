@@ -12,7 +12,7 @@ const ProductBlock = ({ id, title, priceList, price, imageUrl, sizes, typeUnits,
   const count = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-    console.log(idCreate);
+    // console.log(idCreate);
     const item = {
       id: idCreate,
       title,
@@ -23,7 +23,7 @@ const ProductBlock = ({ id, title, priceList, price, imageUrl, sizes, typeUnits,
       typeUnits,
       count: 1,
     };
-    console.log(item);
+    // console.log(item);
     dispatch(addItem(item));
   };
 

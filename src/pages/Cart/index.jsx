@@ -7,11 +7,12 @@ const Cart = () => {
   const { items, totalPrice, totalCount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const handleClearCart = () => {
-    if (window.confirm('Are you sure you want to clear?')) {
-      dispatch(clearItems(''));
+    if (totalPrice > 0) {
+      if (window.confirm('Are you sure you want to clear?')) {
+        dispatch(clearItems(''));
+      }
     }
   };
-  console.log(items);
   return (
     <div className='container'>
       <div className='cart'>
