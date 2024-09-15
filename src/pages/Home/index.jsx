@@ -13,23 +13,27 @@ import { sortingList } from '../../helpers/consts';
 import { setCategoryId, setCurrentPage, setFilters } from './../../redux/slices/filterSlice';
 import { fetchProducts } from '../../redux/slices/productsSlice';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMounted = useRef(false);
 
-  const { categoryId, sortType, currentPage } = useSelector((state) => state.filters);
+  const { categoryId, sortType, currentPage, searchValue } = useSelector((state) => state.filters);
 
   const productsState = useSelector((state) => state.productsList);
   const { items, status, typeError } = productsState;
+  console.log(items);
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
 
   const getProducts = async () => {
-    const sortCategory = categoryId > 0 ? `category=${categoryId}` : '';
-    const search = searchValue ? `search=${searchValue.toLowerCase()}` : '';
-
+    const sortCategory = categoryId > 0 ? `&category=${categoryId}` : '';
+    const search = searchValue ? `&search=${searchValue.toLowerCase()}` : '';
+    console.log(searchValue);
     dispatch(fetchProducts({ sortCategory, search, currentPage, sortType }));
   };
 
@@ -56,11 +60,14 @@ const Home = ({ searchValue }) => {
       const queryString = qs.stringify({
         sortProperty: sortType.sortProperty,
         categoryId,
+        // categoryId: categoryId > 0 ? categoryId : null,
         currentPage,
+        // search: searchValue ? searchValue : null,
       });
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
+    // }, [categoryId, sortType, currentPage, searchValue]);
   }, [categoryId, sortType, currentPage]);
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
@@ -69,7 +76,8 @@ const Home = ({ searchValue }) => {
   return (
     <div className='container'>
       <div className='content__top'>
-        <Categories onClickCategory={(i) => dispatch(setCategoryId(i))} categoryId={categoryId} />
+        <Categories onChangeCategory={onChangeCategory} categoryId={categoryId} />
+        {/* <Categories onChangeCategory={(i) => dispatch(setCategoryId(i))} categoryId={categoryId} /> */}
         <Sort />
       </div>
       <h2 className='content__title'>Вся продукція</h2>

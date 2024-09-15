@@ -9,11 +9,9 @@ import Cart from './pages/Cart';
 import ThemesColor from './components/ThemesColor';
 import './scss/app.scss';
 
-export const SearchContext = createContext('');
 export const ThemeContext = createContext('');
 
 function App() {
-  const [searchValue, setSearchValue] = useState('');
   const [theme, setTheme] = useState('light');
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
@@ -21,19 +19,17 @@ function App() {
 
   return (
     <div className='wrapper' style={{ backgroundColor: theme === 'dark' ? '#575555' : '#fff' }}>
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-        <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
-          <ThemesColor />
-          <Header />
-          <div className='content'>
-            <Routes>
-              <Route path='/' exact element={<Home searchValue={searchValue} />} />
-              <Route path='*' element={<NotFound />} />
-              <Route path='/cart' element={<Cart />} />
-            </Routes>
-          </div>
-        </ThemeContext.Provider>
-      </SearchContext.Provider>
+      <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+        <ThemesColor />
+        <Header />
+        <div className='content'>
+          <Routes>
+            <Route path='/' exact element={<Home />} />
+            <Route path='*' element={<NotFound />} />
+            <Route path='/cart' element={<Cart />} />
+          </Routes>
+        </div>
+      </ThemeContext.Provider>
     </div>
   );
 }

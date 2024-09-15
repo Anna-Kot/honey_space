@@ -1,8 +1,10 @@
 import React from 'react';
-import './../scss/app.scss';
+
 import { categoriesList } from './../helpers/consts';
 
-const Categories = ({ categoryId, onClickCategory }) => {
+import './../scss/app.scss';
+
+const Categories = ({ categoryId, onChangeCategory }) => {
   return (
     <div className='categories'>
       <ul>
@@ -10,7 +12,7 @@ const Categories = ({ categoryId, onClickCategory }) => {
           <li
             className={categoryId === i ? 'active' : ''}
             key={i}
-            onClick={() => onClickCategory(i)}
+            onClick={() => onChangeCategory(i)}
           >
             {item}
           </li>
