@@ -1,3 +1,4 @@
+@import '../../scss/variables';
 .root {
   position: relative;
 
@@ -13,7 +14,7 @@
   line-height: 23px;
   padding: 12px 41px;
   border-radius: 16px;
-  border: 2px solid rgba(43, 109, 230, 0.5);
+  border: 2px solid $blue;
   width: 100%;
   font-size: 17px;
 }

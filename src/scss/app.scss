@@ -24,6 +24,28 @@ body {
   // }
 }
 
+.darkTheme {
+  background-color: $background-dark;
+  color: #fff;
+
+  .product-block__selector {
+    color: $black;
+  }
+  .categories {
+    color: $black;
+  }
+  .header__logo h1 {
+    color: #fff;
+  }
+  .sort__popup {
+    color: $black;
+  }
+}
+.lightTheme {
+  background-color: #fff;
+  color: $black;
+}
+
 .content {
   padding: 40px 0;
 

@@ -22,7 +22,7 @@ const Home = () => {
 
   const productsState = useSelector((state) => state.productsList);
   const { items, status, typeError } = productsState;
-  console.log(items);
+  // console.log(items);
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
@@ -33,7 +33,7 @@ const Home = () => {
   const getProducts = async () => {
     const sortCategory = categoryId > 0 ? `&category=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue.toLowerCase()}` : '';
-    console.log(searchValue);
+    // console.log(searchValue);
     dispatch(fetchProducts({ sortCategory, search, currentPage, sortType }));
   };
 

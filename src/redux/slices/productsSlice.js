@@ -3,18 +3,13 @@ import axios from 'axios';
 
 export const fetchProducts = createAsyncThunk(
   'productsList/fetchProductsStatus',
-  // async (params, thunkAPI) => {
   async (params) => {
     const { sortCategory, search, currentPage, sortType } = params;
     const { data } = await axios.get(
       `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?page=${currentPage}${search}&limit=8${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
     );
-    //example of reject and fulfill with thunkAPI:
-    // if (data.length === 0) {
-    //   return thunkAPI.rejectWithValue('Продуктів не здайдено');
-    // } else {
-    //   return thunkAPI.fulfillWithValue(data);
-    // }
+    console.log(sortCategory);
+    console.log(sortType.sortProperty);
     return data;
   },
 );
@@ -28,11 +23,7 @@ const initialState = {
 const productsSlice = createSlice({
   name: 'productsList',
   initialState,
-  reducers: {
-    setItems(state, action) {
-      state.items = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
       state.status = 'loading';
@@ -41,13 +32,13 @@ const productsSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.items = action.payload;
       state.status = 'success';
-      console.log(action);
+      // console.log(action);
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.status = 'error';
       state.items = [];
       state.typeError = action.error.message.match(/\d+/)[0];
-      console.log(action);
+      // console.log(action);
     });
   },
 });

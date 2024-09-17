@@ -16,6 +16,7 @@ export const filterSlice = createSlice({
     },
     setSortType(state, action) {
       state.sortType = action.payload;
+      console.log(action);
     },
     setCurrentPage(state, action) {
       state.currentPage = action.payload;
@@ -25,7 +26,7 @@ export const filterSlice = createSlice({
       state.categoryId = Number(action.payload.categoryId);
       state.sortType = action.payload.sortType;
       // state.searchValue = action.payload.search;
-      console.log(action.payload);
+      // console.log(action.payload);
     },
     setSearchValue(state, action) {
       state.searchValue = action.payload;

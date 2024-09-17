@@ -4,7 +4,7 @@ import styles from './ThemesColor.module.scss';
 import { ThemeContext } from './../../App';
 
 const ThemesColor = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   return (
     <div className={styles.root}>
@@ -15,10 +15,10 @@ const ThemesColor = () => {
         width='60'
         height='60'
         viewBox='0,0,256,256'
-        onClick={toggleTheme}
+        onClick={() => setTheme(!theme)}
       >
         <g
-          fill={theme === 'light' ? '#000000' : '#eed82d'}
+          fill={theme ? '#000000' : '#eed82d'}
           fillRule='nonzero'
           stroke='none'
           strokeWidth='1'

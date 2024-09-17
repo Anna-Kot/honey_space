@@ -12,14 +12,12 @@ import './scss/app.scss';
 export const ThemeContext = createContext('');
 
 function App() {
-  const [theme, setTheme] = useState('light');
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
+  const [theme, setTheme] = useState(true);
+  const themeClass = theme ? 'lightTheme' : 'darkTheme';
 
   return (
-    <div className='wrapper' style={{ backgroundColor: theme === 'dark' ? '#575555' : '#fff' }}>
-      <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <div className={`wrapper ${themeClass}`}>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
         <ThemesColor />
         <Header />
         <div className='content'>
