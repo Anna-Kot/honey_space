@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styles from './ThemesColor.module.scss';
 
-import { ThemeContext } from './../../App';
+import { ThemeContext } from './../../layouts/MainLayout';
 
 const ThemesColor = () => {
   const { theme, setTheme } = useContext(ThemeContext);

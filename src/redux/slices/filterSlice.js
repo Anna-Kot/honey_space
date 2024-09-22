@@ -16,17 +16,17 @@ export const filterSlice = createSlice({
     },
     setSortType(state, action) {
       state.sortType = action.payload;
-      console.log(action);
     },
     setCurrentPage(state, action) {
       state.currentPage = action.payload;
     },
     setFilters(state, action) {
-      state.currentPage = Number(action.payload.currentPage);
-      state.categoryId = Number(action.payload.categoryId);
+      state.currentPage = action.payload.currentPage;
+      state.categoryId = action.payload.categoryId;
+      // state.currentPage = Number(action.payload.currentPage);
+      // state.categoryId = Number(action.payload.categoryId);
       state.sortType = action.payload.sortType;
       // state.searchValue = action.payload.search;
-      // console.log(action.payload);
     },
     setSearchValue(state, action) {
       state.searchValue = action.payload;

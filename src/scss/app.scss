@@ -40,10 +40,17 @@ body {
   .sort__popup {
     color: $black;
   }
+  a {
+    color: #fff;
+  }
 }
 .lightTheme {
   background-color: #fff;
   color: $black;
+
+  a {
+    color: $black;
+  }
 }
 
 .content {

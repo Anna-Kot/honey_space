@@ -22,7 +22,6 @@ const Home = () => {
   const { categoryId, sortType, currentPage, searchValue } = useSelector((state) => state.filters);
 
   const { items, status, typeError } = useSelector((state) => state.productsList);
-
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
@@ -53,7 +52,6 @@ const Home = () => {
         }),
       );
     }
-    isMounted.current = true;
   }, []);
 
   useEffect(() => {
@@ -61,22 +59,26 @@ const Home = () => {
     getProducts();
   }, [categoryId, sortType.sortProperty, currentPage, searchValue]);
 
+  // useEffect(() => {
+  //   if (!location.search) {
+  //     getProducts();
+  //   }
+  // }, [categoryId, sortType.sortProperty, currentPage, searchValue]);
+
   useEffect(() => {
     if (isMounted.current) {
-      const params = {
+      const queryString = qs.stringify({
         sortProperty: sortType.sortProperty,
         categoryId,
+        // categoryId: categoryId > 0 ? categoryId : null,
         currentPage,
         search: searchValue,
-      };
-
-      const queryString = qs.stringify(params, { skipNulls: true });
-
-      navigate(`/?${queryString}`);
+        // search: searchValue ? searchValue : null,
+      });
+      navigate(`?${queryString}`);
     }
-    if (!window.location.search) {
-      fetchProducts();
-    }
+    isMounted.current = true;
+    // }, [categoryId, sortType, currentPage, searchValue]);
   }, [categoryId, sortType, currentPage, searchValue]);
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);

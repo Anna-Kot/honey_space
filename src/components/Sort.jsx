@@ -8,7 +8,6 @@ const Sort = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const popupRef = useRef(null);
   const sortType = useSelector((state) => state.filters.sortType);
-  console.log(sortType);
   const dispatch = useDispatch();
   const handleSortingType = (obj) => {
     dispatch(setSortType(obj));

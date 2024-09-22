@@ -7,9 +7,8 @@ export const fetchProducts = createAsyncThunk(
     const { sortCategory, search, currentPage, sortType } = params;
     const { data } = await axios.get(
       `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?page=${currentPage}${search}&limit=8${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
+      // `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?${sortCategory}&sortBy=${sortType.sortProperty}&order=asc`,
     );
-    console.log(sortCategory);
-    console.log(sortType.sortProperty);
     return data;
   },
 );
@@ -23,7 +22,11 @@ const initialState = {
 const productsSlice = createSlice({
   name: 'productsList',
   initialState,
-  reducers: {},
+  reducers: {
+    setItems(state, action) {
+      state.items = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
       state.status = 'loading';
@@ -32,13 +35,11 @@ const productsSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.items = action.payload;
       state.status = 'success';
-      // console.log(action);
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.status = 'error';
       state.items = [];
       state.typeError = action.error.message.match(/\d+/)[0];
-      // console.log(action);
     });
   },
 });
