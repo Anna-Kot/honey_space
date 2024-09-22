@@ -26,7 +26,8 @@ export const filterSlice = createSlice({
       // state.currentPage = Number(action.payload.currentPage);
       // state.categoryId = Number(action.payload.categoryId);
       state.sortType = action.payload.sortType;
-      // state.searchValue = action.payload.search;
+      state.searchValue = action.payload.search;
+      console.log(action);
     },
     setSearchValue(state, action) {
       state.searchValue = action.payload;

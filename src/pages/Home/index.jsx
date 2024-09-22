@@ -20,7 +20,6 @@ const Home = () => {
   const isMounted = useRef(false);
 
   const { categoryId, sortType, currentPage, searchValue } = useSelector((state) => state.filters);
-
   const { items, status, typeError } = useSelector((state) => state.productsList);
 
   const onChangePage = (number) => {
@@ -50,6 +49,7 @@ const Home = () => {
           sortType,
           categoryId: Number(params.categoryId),
           currentPage: Number(params.currentPage),
+          search: searchValue,
         }),
       );
     }
