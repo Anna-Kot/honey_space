@@ -8,7 +8,6 @@ import { ReactComponent as IconDelete } from '../../assets/delete_icon.svg';
 
 const CartItem: React.FC<CartItemType> = ({ item }) => {
   const { id, title, price, size, imageUrl, count, typeUnits }: CartProps = item;
-  console.log(item);
   const dispatch = useDispatch();
   const sumItem = count * price;
 

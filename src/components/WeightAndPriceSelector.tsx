@@ -14,12 +14,10 @@ const WeightAndPriceSelector: React.FC<ProductBlockProps> = ({
 }) => {
   const [activeSizeIndex, setActiveSizeIndex] = useState(0);
   const idCreate = `${id}_${activeSizeIndex}`;
-  console.log(idCreate);
   const dispatch = useDispatch();
   const cartItem = useSelector((state: any) =>
     state.cart.items.find((obj: CartItemTypes) => obj.id === idCreate),
   );
-  console.log(cartItem);
   const count = cartItem ? cartItem.count : 0;
   const onClickAdd = () => {
     const item = {
@@ -32,7 +30,6 @@ const WeightAndPriceSelector: React.FC<ProductBlockProps> = ({
       typeUnits,
       count: 1,
     };
-    console.log(item);
     dispatch(addItem(item));
   };
 

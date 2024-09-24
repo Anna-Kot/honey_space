@@ -17,7 +17,7 @@ export type sortingType = {
 
 export type CategoriesProps = {
   categoryId: number;
-  onChangeCategory: any;
+  onChangeCategory: (i: number) => void;
 };
 
 export interface CartProps {
@@ -36,7 +36,7 @@ export interface CartItemType {
 
 export type PaginationProps = {
   currentPage: number;
-  onChangePage: any;
+  onChangePage: (page: number) => void;
 };
 
 export interface ProductBlockProps {
@@ -71,3 +71,6 @@ export interface ThemeContextProps {
   theme: boolean;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }
+export type PopupClick = MouseEvent & {
+  path: Node[];
+};

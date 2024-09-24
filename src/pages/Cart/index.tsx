@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const { items, totalPrice, totalCount } = useSelector((state: any) => state.cart);
-  console.log(items);
   const dispatch = useDispatch();
   const handleClearCart = () => {
     if (totalPrice > 0) {

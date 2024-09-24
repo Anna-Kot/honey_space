@@ -12,14 +12,13 @@ const Sort: React.FC = () => {
   const sortType = useSelector((state: any) => state.filters.sortType);
   const dispatch = useDispatch();
   const handleSortingType = (obj: sortingType) => {
-    console.log(obj);
     dispatch(setSortType(obj));
     setOpenPopup(false);
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (popupRef.current && !popupRef.current.contains(e.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
         setOpenPopup(false);
       }
     };
@@ -29,7 +28,7 @@ const Sort: React.FC = () => {
     };
   }, []);
   return (
-    <div className='sort' ref={popupRef}>
+    <div className='sort'>
       <div className='sort__label'>
         <svg
           width='10'
@@ -47,7 +46,7 @@ const Sort: React.FC = () => {
         <span onClick={() => setOpenPopup(true)}>{sortType.name}</span>
       </div>
       {openPopup && (
-        <div className='sort__popup'>
+        <div className='sort__popup' ref={popupRef}>
           <ul>
             {sortingList.map((obj, i) => (
               <li
