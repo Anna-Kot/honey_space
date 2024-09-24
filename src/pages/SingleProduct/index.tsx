@@ -5,9 +5,11 @@ import { categoriesList } from '../../helpers/consts';
 import './../../scss/app.scss';
 import axios from 'axios';
 import WeightAndPriceSelector from '../../components/WeightAndPriceSelector';
+import { ProductTypes } from '../../helpers/interfaces';
 
-const SingleProduct = () => {
-  const [product, setProduct] = useState();
+const SingleProduct: React.FC = () => {
+  const [product, setProduct] = useState<ProductTypes>();
+  console.log(product);
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -16,7 +18,7 @@ const SingleProduct = () => {
         const { data } = await axios.get(
           `https://66cc799fa4dd3c8a71b7bffd.mockapi.io/items?&id=${id}`,
         );
-        setProduct(data);
+        setProduct(data[0]);
       } catch (error) {
         alert('Помилка при отриманні продукту');
         navigate('/');
@@ -25,21 +27,21 @@ const SingleProduct = () => {
     fetchProduct();
   }, []);
   if (!product) {
-    return 'Завантаження ....';
+    return <>Завантаження ....</>;
   }
   return (
     <div className='container'>
       <div style={{ display: 'flex' }}>
         <div style={{ textAlign: 'center' }}>
-          <h2>{product[0].title}</h2>
-          <img src={product[0].imageUrl} alt='product'></img>
+          <h2>{product.title}</h2>
+          <img src={product.imageUrl} alt='product'></img>
           <WeightAndPriceSelector
-            priceList={product[0].priceList}
-            types={product[0].types}
-            typeUnits={product[0].typeUnits}
+            priceList={product.priceList}
+            types={product.types}
+            typeUnits={product.typeUnits}
             id={id}
-            title={product[0].title}
-            imageUrl={product[0].imageUrl}
+            title={product.title}
+            imageUrl={product.imageUrl}
           />
         </div>
         <div
@@ -52,14 +54,14 @@ const SingleProduct = () => {
           }}
         >
           <p>
-            Категорія: <b>{categoriesList[product[0].category]}</b>
+            Категорія: <b>{categoriesList[product.category]}</b>
           </p>
           <p>
-            Рейтинг: <b>{product[0].rating}</b>/10
+            Рейтинг: <b>{product.rating}</b>/10
           </p>
-          <p>Опис: {product[0].description}</p>
+          <p>Опис: {product.description}</p>
           <p>
-            Ціна від: <b>{product[0].priceMin}</b> грн
+            Ціна від: <b>{product.priceMin}</b> грн
           </p>
         </div>
       </div>

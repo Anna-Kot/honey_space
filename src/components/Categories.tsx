@@ -3,8 +3,10 @@ import React from 'react';
 import { categoriesList } from './../helpers/consts';
 
 import './../scss/app.scss';
+import { CategoriesProps } from '../helpers/interfaces';
 
-const Categories = ({ categoryId, onChangeCategory }) => {
+const Categories: React.FC<CategoriesProps> = ({ categoryId, onChangeCategory }) => {
+  console.log(categoryId);
   return (
     <div className='categories'>
       <ul>

@@ -3,29 +3,33 @@ import './../scss/app.scss';
 import { sortingList } from './../helpers/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortType } from './../redux/slices/filterSlice';
+// import { DispatchProperties, StateProperties } from '../redux/store';
+import { sortingType } from '../helpers/interfaces';
 
 const Sort = () => {
   const [openPopup, setOpenPopup] = useState(false);
-  const popupRef = useRef(null);
-  const sortType = useSelector((state) => state.filters.sortType);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const sortType = useSelector((state: any) => state.filters.sortType);
   const dispatch = useDispatch();
-  const handleSortingType = (obj) => {
+  const handleSortingType = (obj: sortingType) => {
+    console.log(obj);
     dispatch(setSortType(obj));
     setOpenPopup(false);
   };
-  const handleClickOutside = (e) => {
-    if (popupRef.current && !popupRef.current.contains(e.target)) {
-      setOpenPopup(false);
-    }
-  };
+
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    const handleClickOutside = (e: any) => {
+      if (popupRef.current && !popupRef.current.contains(e.target)) {
+        setOpenPopup(false);
+      }
+    };
+    document.body.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
   return (
-    <div className='sort'>
+    <div className='sort' ref={popupRef}>
       <div className='sort__label'>
         <svg
           width='10'
@@ -43,7 +47,7 @@ const Sort = () => {
         <span onClick={() => setOpenPopup(true)}>{sortType.name}</span>
       </div>
       {openPopup && (
-        <div className='sort__popup' ref={popupRef}>
+        <div className='sort__popup'>
           <ul>
             {sortingList.map((obj, i) => (
               <li
