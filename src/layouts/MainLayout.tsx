@@ -2,10 +2,11 @@ import React, { createContext, useState } from 'react';
 import Header from '../components/Header';
 import ThemesColor from '../components/ThemesColor';
 import { Outlet } from 'react-router-dom';
-export const ThemeContext = createContext('');
+import { ThemeContextProps } from '../helpers/interfaces';
+export const ThemeContext = createContext<ThemeContextProps | null>(null);
 
-const MainLayout = () => {
-  const [theme, setTheme] = useState(true);
+const MainLayout: React.FC = () => {
+  const [theme, setTheme] = useState<boolean>(true);
   const themeClass = theme ? 'lightTheme' : 'darkTheme';
 
   return (

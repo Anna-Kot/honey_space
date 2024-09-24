@@ -2,12 +2,24 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../redux/slices/cartSlice';
+import { CartItemTypes, ProductBlockProps } from '../helpers/interfaces';
 
-const WeightAndPriceSelector = ({ priceList, types, typeUnits, id, title, imageUrl }) => {
+const WeightAndPriceSelector: React.FC<ProductBlockProps> = ({
+  priceList,
+  types,
+  typeUnits,
+  id,
+  title,
+  imageUrl,
+}) => {
   const [activeSizeIndex, setActiveSizeIndex] = useState(0);
   const idCreate = `${id}_${activeSizeIndex}`;
+  console.log(idCreate);
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === idCreate));
+  const cartItem = useSelector((state: any) =>
+    state.cart.items.find((obj: CartItemTypes) => obj.id === idCreate),
+  );
+  console.log(cartItem);
   const count = cartItem ? cartItem.count : 0;
   const onClickAdd = () => {
     const item = {
@@ -20,10 +32,11 @@ const WeightAndPriceSelector = ({ priceList, types, typeUnits, id, title, imageU
       typeUnits,
       count: 1,
     };
+    console.log(item);
     dispatch(addItem(item));
   };
 
-  const handlerActiveSize = (index) => {
+  const handlerActiveSize = (index: number) => {
     setActiveSizeIndex(index);
   };
   return (

@@ -21,7 +21,7 @@ export type CategoriesProps = {
 };
 
 export interface CartProps {
-  id: string;
+  id: number;
   title: string;
   price: number;
   size: number;
@@ -32,4 +32,42 @@ export interface CartProps {
 
 export interface CartItemType {
   item: CartProps;
+}
+
+export type PaginationProps = {
+  currentPage: number;
+  onChangePage: any;
+};
+
+export interface ProductBlockProps {
+  id: number;
+  title: string;
+  priceList: PriceSizeTypes;
+  imageUrl: string;
+  typeUnits: string;
+  types: string;
+}
+export type PriceSizeTypes = {
+  price: number[];
+  sizes: number[];
+};
+
+export interface CartItemTypes {
+  id: string;
+  title: string;
+  index: number;
+  price: number;
+  size: number;
+  imageUrl: string;
+  typeUnits: string;
+  count: number;
+}
+
+export type ParamIdType = {
+  id: number;
+};
+
+export interface ThemeContextProps {
+  theme: boolean;
+  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }

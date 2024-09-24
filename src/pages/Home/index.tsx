@@ -13,19 +13,21 @@ import { sortingList } from '../../helpers/consts';
 import { setCategoryId, setCurrentPage, setFilters } from './../../redux/slices/filterSlice';
 import { fetchProducts } from '../../redux/slices/productsSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const isMounted = useRef(false);
 
-  const { categoryId, sortType, currentPage, searchValue } = useSelector((state) => state.filters);
-  const { items, status, typeError } = useSelector((state) => state.productsList);
+  const { categoryId, sortType, currentPage, searchValue } = useSelector(
+    (state: any) => state.filters,
+  );
+  const { items, status, typeError } = useSelector((state: any) => state.productsList);
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
@@ -80,13 +82,12 @@ const Home = () => {
   }, [categoryId, sortType, currentPage, searchValue]);
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
-  const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
+  const products = items.map((obj: any) => <ProductBlock key={obj.id} {...obj} />);
 
   return (
     <div className='container'>
       <div className='content__top'>
         <Categories onChangeCategory={onChangeCategory} categoryId={categoryId} />
-        {/* <Categories onChangeCategory={(i) => dispatch(setCategoryId(i))} categoryId={categoryId} /> */}
         <Sort />
       </div>
       <h2 className='content__title'>Вся продукція</h2>

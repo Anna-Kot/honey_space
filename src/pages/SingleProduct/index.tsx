@@ -9,7 +9,6 @@ import { ProductTypes } from '../../helpers/interfaces';
 
 const SingleProduct: React.FC = () => {
   const [product, setProduct] = useState<ProductTypes>();
-  console.log(product);
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -39,7 +38,7 @@ const SingleProduct: React.FC = () => {
             priceList={product.priceList}
             types={product.types}
             typeUnits={product.typeUnits}
-            id={id}
+            id={Number(id)}
             title={product.title}
             imageUrl={product.imageUrl}
           />

@@ -3,8 +3,13 @@ import styles from './ThemesColor.module.scss';
 
 import { ThemeContext } from './../../layouts/MainLayout';
 
-const ThemesColor = () => {
-  const { theme, setTheme } = useContext(ThemeContext);
+const ThemesColor: React.FC = () => {
+  const themeContext = useContext(ThemeContext);
+
+  if (!themeContext) {
+    return null;
+  }
+  const { theme, setTheme } = themeContext;
 
   return (
     <div className={styles.root}>

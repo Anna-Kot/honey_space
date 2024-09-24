@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { ReactComponent as CartIcon } from '../assets/cart_icon.svg';
 // import { DispatchProperties, StateProperties } from '../redux/store';
 
-const Header = () => {
+const Header: React.FC = () => {
   const { totalPrice, totalCount } = useSelector((state: any) => state.cart);
   const { pathname } = useLocation();
   return (

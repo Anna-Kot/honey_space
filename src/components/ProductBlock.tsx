@@ -5,8 +5,16 @@ import React from 'react';
 // import { addItem } from '../redux/slices/cartSlice';
 import WeightAndPriceSelector from './WeightAndPriceSelector';
 import { Link } from 'react-router-dom';
+import { ProductBlockProps } from '../helpers/interfaces';
 
-const ProductBlock = ({ id, title, priceList, price, imageUrl, sizes, typeUnits, types }) => {
+const ProductBlock: React.FC<ProductBlockProps> = ({
+  id,
+  title,
+  priceList,
+  imageUrl,
+  typeUnits,
+  types,
+}) => {
   return (
     <div className='product-block'>
       <Link to={`/product/${id}`}>
