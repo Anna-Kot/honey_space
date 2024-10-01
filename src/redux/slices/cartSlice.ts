@@ -1,48 +1,39 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  CalculationTypes,
-  CartSliceTypes,
-  CartItemTypes,
-  MinusItem,
-} from '../../helpers/interfaces';
+import { CartSliceTypes, CartItemType, MinusItem } from '../../helpers/interfaces';
 import { getCartFromLS } from '../../utils/getCartFromLS';
 import { calculateTotals } from '../../utils/calculateTotals';
 
+const updateTotals = (state: CartSliceTypes) => {
+  const { totalPrice, totalCount } = calculateTotals(state.items);
+  state.totalPrice = totalPrice;
+  state.totalCount = totalCount;
+};
+
 const initialState: CartSliceTypes = getCartFromLS();
-// const initialState: CartSliceTypes = {
-//   items: cartData,
-//   totalPrice,
-//   totalCount,
-// };
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem(state, action: PayloadAction<CartItemTypes>) {
+    addItem(state, action: PayloadAction<CartItemType>) {
       const findItem = state.items.find((item) => item.id === action.payload.id);
       if (findItem) {
         findItem.count++;
       } else {
         state.items = [...state.items, action.payload];
       }
-      const { totalPrice, totalCount } = calculateTotals(state.items);
-      state.totalPrice = totalPrice;
-      state.totalCount = totalCount;
+      updateTotals(state);
     },
     minusItem(state, action: PayloadAction<MinusItem>) {
       const findItem = state.items.find((item) => item.id === action.payload.id);
       if (findItem && findItem.count > 1) {
         findItem.count--;
       }
-      const { totalPrice, totalCount } = calculateTotals(state.items);
-      state.totalPrice = totalPrice;
-      state.totalCount = totalCount;
+      updateTotals(state);
     },
     removeItem(state, action: PayloadAction<string>) {
       state.items = state.items.filter((obj) => obj.id !== action.payload);
-      const { totalPrice, totalCount } = calculateTotals(state.items);
-      state.totalPrice = totalPrice;
-      state.totalCount = totalCount;
+      updateTotals(state);
     },
     clearItems(state) {
       state.items = [];

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../redux/slices/cartSlice';
-import { CartItemTypes, ProductBlockProps } from '../helpers/interfaces';
+import { CartItemType, ProductBlockProps } from '../helpers/interfaces';
 import { DispatchProperties, RootState } from '../redux/store';
 
 const WeightAndPriceSelector: React.FC<ProductBlockProps> = ({
@@ -17,11 +17,11 @@ const WeightAndPriceSelector: React.FC<ProductBlockProps> = ({
   const idCreate = `${id}_${activeSizeIndex}`;
   const dispatch = useDispatch<DispatchProperties>();
   const cartItem = useSelector((state: RootState) =>
-    state.cart.items.find((obj: CartItemTypes) => obj.id === idCreate),
+    state.cart.items.find((obj: CartItemType) => obj.id === idCreate),
   );
   const count = cartItem ? cartItem.count : 0;
   const onClickAdd = () => {
-    const item: CartItemTypes = {
+    const item: CartItemType = {
       id: idCreate,
       title,
       index: activeSizeIndex,

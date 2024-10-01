@@ -38,7 +38,7 @@ export type CartProps = {
   count: number;
   typeUnits: string;
 };
-export type CartItemTypes = {
+export type CartItemType = {
   id: string;
   title: string;
   index?: number;
@@ -49,10 +49,9 @@ export type CartItemTypes = {
   count: number;
 };
 
-export interface CartItemType {
+export interface CartItemTypes {
   item: CartProps;
 }
-
 export type PaginationProps = {
   currentPage: number;
   onChangePage: (page: number) => void;
@@ -71,10 +70,6 @@ export type PriceSizeTypes = {
   sizes: number[];
 };
 
-// export type ParamIdType = {
-//   id: string;
-// };
-
 export interface ThemeContextProps {
   theme: boolean;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
@@ -89,7 +84,7 @@ export interface CalculationTypes {
 export interface CartSliceTypes {
   totalPrice: number;
   totalCount: number;
-  items: CartItemTypes[];
+  items: CartItemType[];
 }
 
 export interface FilterSliceTypes {

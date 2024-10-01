@@ -7,8 +7,8 @@ import { ReactComponent as IconPlus } from '../../assets/plus_icon.svg';
 import { ReactComponent as IconDelete } from '../../assets/delete_icon.svg';
 import { DispatchProperties } from '../../redux/store';
 
-const CartItem: React.FC<CartItemType> = ({ item }) => {
-  const { id, title, price, size, imageUrl, count, typeUnits }: CartItemTypes = item;
+const CartItem: React.FC<CartItemTypes> = ({ item }) => {
+  const { id, title, price, size, imageUrl, count, typeUnits }: CartItemType = item;
   const dispatch = useDispatch<DispatchProperties>();
   const sumItem = count * price;
 
@@ -24,7 +24,7 @@ const CartItem: React.FC<CartItemType> = ({ item }) => {
     dispatch(
       addItem({
         id,
-      } as CartItemTypes),
+      } as CartItemType),
     );
   };
   return (

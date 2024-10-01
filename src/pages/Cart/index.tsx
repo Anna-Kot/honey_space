@@ -7,7 +7,7 @@ import { ReactComponent as CartIcon } from '../../assets/cart_icon_black.svg';
 import { ReactComponent as ArrowBack } from '../../assets/arrow_back.svg';
 import { Link } from 'react-router-dom';
 import { DispatchProperties, RootState } from '../../redux/store';
-import { CartItemTypes } from '../../helpers/interfaces';
+import { CartItemType } from '../../helpers/interfaces';
 
 const Cart = () => {
   const { items, totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
@@ -33,7 +33,7 @@ const Cart = () => {
           </div>
         </div>
         <div className='cart__items'>
-          {items.map((item: CartItemTypes) => (
+          {items.map((item: CartItemType) => (
             <CartItem key={item.id} item={item} />
           ))}
         </div>
