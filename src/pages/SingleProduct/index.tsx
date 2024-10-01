@@ -32,7 +32,7 @@ const SingleProduct: React.FC = () => {
       <div style={{ display: 'flex' }}>
         <div style={{ textAlign: 'center' }}>
           <h2>{product.title}</h2>
-          <img src={product.imageUrl} alt='product'></img>
+          <img src={product.imageUrl} alt='product' style={{ maxWidth: '500px' }}></img>
           <WeightAndPriceSelector
             priceList={product.priceList}
             types={product.types}

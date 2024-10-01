@@ -1,3 +1,4 @@
+import { CartItemType } from '../helpers/interfaces';
 import { calculateTotals } from './calculateTotals';
 
 export const getCartFromLS = () => {
@@ -6,7 +7,7 @@ export const getCartFromLS = () => {
   const { totalPrice, totalCount } = calculateTotals(items);
 
   return {
-    items,
+    items: items as CartItemType[],
     totalPrice,
     totalCount,
   };

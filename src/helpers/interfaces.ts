@@ -1,3 +1,4 @@
+//full product type
 export interface ProductTypes {
   id: number;
   title: string;
@@ -10,6 +11,8 @@ export interface ProductTypes {
   description: string;
   priceMin: number;
 }
+
+// sorting:
 export enum SortPropertyEnum {
   RATING = 'rating',
   PRICEMIN = 'priceMin',
@@ -29,6 +32,7 @@ export type CategoriesProps = {
   onChangeCategory: (i: number) => void;
 };
 
+//cart types:
 export type CartProps = {
   id: string;
   title: string;
@@ -52,11 +56,29 @@ export type CartItemType = {
 export interface CartItemTypes {
   item: CartProps;
 }
-export type PaginationProps = {
-  currentPage: number;
-  onChangePage: (page: number) => void;
-};
 
+export interface CartSliceTypes {
+  totalPrice: number;
+  totalCount: number;
+  items: CartItemType[];
+}
+
+//filter types:
+export interface FilterSliceTypes {
+  categoryId: number;
+  currentPage: number;
+  searchValue: string;
+  sortType: SortingType;
+}
+
+export interface SetFilterTypes {
+  categoryId: number;
+  currentPage: number;
+  searchValue: string;
+  sortType: SortingType;
+}
+
+//products types:
 export interface ProductBlockProps {
   id: number;
   title: string;
@@ -70,47 +92,10 @@ export type PriceSizeTypes = {
   sizes: number[];
 };
 
-export interface ThemeContextProps {
-  theme: boolean;
-  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
-}
-// export type PopupClick = MouseEvent & {
-//   path: Node[];
-// };
-export interface CalculationTypes {
-  price: number;
-  count: number;
-}
-export interface CartSliceTypes {
-  totalPrice: number;
-  totalCount: number;
-  items: CartItemType[];
-}
-
-export interface FilterSliceTypes {
-  categoryId: number;
-  currentPage: number;
-  searchValue: string;
-  sortType: SortingType;
-}
-
 export interface ProductsSliceTypes {
   items: ProductTypes[];
   status: Status;
   typeError?: string | number | undefined;
-}
-export interface ErrorProperties {
-  status: number;
-  title: string;
-}
-export type MinusItem = {
-  id: string;
-};
-export interface SetFilterTypes {
-  categoryId: number;
-  currentPage: number;
-  searchValue: string;
-  sortType: SortingType;
 }
 
 export type APIProductParams = {
@@ -125,3 +110,28 @@ export enum Status {
   SUCCESS = 'success',
   ERROR = 'error',
 }
+
+export type PaginationProps = {
+  currentPage: number;
+  onChangePage: (page: number) => void;
+};
+
+export interface ThemeContextProps {
+  theme: boolean;
+  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
+}
+// export type PopupClick = MouseEvent & {
+//   path: Node[];
+// };
+export interface CalculationTypes {
+  price: number;
+  count: number;
+}
+
+export interface ErrorProperties {
+  status: number;
+  title: string;
+}
+export type MinusItem = {
+  id: string;
+};
