@@ -10,3 +10,7 @@ export const store = configureStore({
     productsList,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type DispatchProperties = typeof store.dispatch;

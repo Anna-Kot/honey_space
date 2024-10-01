@@ -1,4 +1,4 @@
-import { sortingType } from '../helpers/interfaces';
+import { SortingType, SortPropertyEnum } from '../helpers/interfaces';
 export const categoriesList: string[] = [
   'Всі',
   'Мед',
@@ -8,8 +8,8 @@ export const categoriesList: string[] = [
   'Настоянки',
 ];
 
-export const sortingList: sortingType[] = [
-  { name: 'популярністю', sortProperty: 'rating' },
-  { name: 'ціною', sortProperty: 'priceMin' },
-  { name: 'алфавітом', sortProperty: 'title' },
+export const sortingList: SortingType[] = [
+  { name: 'популярністю', sortProperty: SortPropertyEnum.RATING },
+  { name: 'ціною', sortProperty: SortPropertyEnum.PRICEMIN },
+  { name: 'алфавітом', sortProperty: SortPropertyEnum.TITLE },
 ];

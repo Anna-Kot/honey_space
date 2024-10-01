@@ -1,4 +1,5 @@
 export interface ProductTypes {
+  id: number;
   title: string;
   imageUrl: string;
   priceList: { sizes: number[]; price: number[] };
@@ -9,10 +10,14 @@ export interface ProductTypes {
   description: string;
   priceMin: number;
 }
-
-export type sortingType = {
+export enum SortPropertyEnum {
+  RATING = 'rating',
+  PRICEMIN = 'priceMin',
+  TITLE = 'title',
+}
+export type SortingType = {
   name: string;
-  sortProperty: string;
+  sortProperty: SortPropertyEnum;
 };
 
 export type CategoriesProps = {
@@ -20,15 +25,25 @@ export type CategoriesProps = {
   onChangeCategory: (i: number) => void;
 };
 
-export interface CartProps {
-  id: number;
+export type CartProps = {
+  id: string;
   title: string;
   price: number;
   size: number;
   imageUrl: string;
   count: number;
   typeUnits: string;
-}
+};
+export type CartItemTypes = {
+  id: string;
+  title: string;
+  index?: number;
+  price: number;
+  size: number;
+  imageUrl: string;
+  typeUnits: string;
+  count: number;
+};
 
 export interface CartItemType {
   item: CartProps;
@@ -52,25 +67,63 @@ export type PriceSizeTypes = {
   sizes: number[];
 };
 
-export interface CartItemTypes {
-  id: string;
-  title: string;
-  index: number;
-  price: number;
-  size: number;
-  imageUrl: string;
-  typeUnits: string;
-  count: number;
-}
-
-export type ParamIdType = {
-  id: number;
-};
+// export type ParamIdType = {
+//   id: string;
+// };
 
 export interface ThemeContextProps {
   theme: boolean;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export type PopupClick = MouseEvent & {
-  path: Node[];
+// export type PopupClick = MouseEvent & {
+//   path: Node[];
+// };
+export interface CalculationTypes {
+  price: number;
+  count: number;
+}
+export interface CartSliceTypes {
+  totalPrice: number;
+  totalCount: number;
+  items: CartItemTypes[];
+}
+
+export interface FilterSliceTypes {
+  categoryId: number;
+  currentPage: number;
+  searchValue: string;
+  sortType: SortingType;
+}
+
+export interface ProductsSliceTypes {
+  items: ProductTypes[];
+  status: Status;
+  typeError?: string | number | undefined;
+}
+export interface ErrorProperties {
+  status: number;
+  title: string;
+}
+export type MinusItem = {
+  id: string;
 };
+export interface SetFilterTypes {
+  categoryId: number;
+  currentPage: number;
+  searchValue: string;
+  sortType: SortingType;
+}
+
+// export type FetchProductsArgs = Record<string, string>;
+export type APIProductParams = {
+  sortBy: string;
+  sortCategory: string;
+  currentPage: number;
+  search: string;
+};
+
+export enum Status {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}

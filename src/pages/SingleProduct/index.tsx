@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-// import styles from './SingleProduct.module.scss';
 import { categoriesList } from '../../helpers/consts';
 import './../../scss/app.scss';
 import axios from 'axios';

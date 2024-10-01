@@ -3,15 +3,15 @@ import './../scss/app.scss';
 import { sortingList } from './../helpers/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortType } from './../redux/slices/filterSlice';
-// import { DispatchProperties, StateProperties } from '../redux/store';
-import { sortingType } from '../helpers/interfaces';
+import { SortingType } from '../helpers/interfaces';
+import { DispatchProperties, RootState } from '../redux/store';
 
 const Sort: React.FC = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
-  const sortType = useSelector((state: any) => state.filters.sortType);
-  const dispatch = useDispatch();
-  const handleSortingType = (obj: sortingType) => {
+  const sortType = useSelector((state: RootState) => state.filters.sortType);
+  const dispatch = useDispatch<DispatchProperties>();
+  const handleSortingType = (obj: SortingType) => {
     dispatch(setSortType(obj));
     setOpenPopup(false);
   };

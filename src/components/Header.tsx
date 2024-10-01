@@ -5,10 +5,10 @@ import logo from '../assets/logo_honey.png';
 import Search from './Search';
 import { useSelector } from 'react-redux';
 import { ReactComponent as CartIcon } from '../assets/cart_icon.svg';
-// import { DispatchProperties, StateProperties } from '../redux/store';
+import { RootState } from '../redux/store';
 
 const Header: React.FC = () => {
-  const { totalPrice, totalCount } = useSelector((state: any) => state.cart);
+  const { totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
   const { pathname } = useLocation();
   return (
     <div className='header'>

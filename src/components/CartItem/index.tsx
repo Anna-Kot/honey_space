@@ -1,14 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice';
-import { CartProps, CartItemType } from '../../helpers/interfaces';
+import { CartItemType, CartItemTypes } from '../../helpers/interfaces';
 import { ReactComponent as IconMinus } from '../../assets/minus_icon.svg';
 import { ReactComponent as IconPlus } from '../../assets/plus_icon.svg';
 import { ReactComponent as IconDelete } from '../../assets/delete_icon.svg';
+import { DispatchProperties } from '../../redux/store';
 
 const CartItem: React.FC<CartItemType> = ({ item }) => {
-  const { id, title, price, size, imageUrl, count, typeUnits }: CartProps = item;
-  const dispatch = useDispatch();
+  const { id, title, price, size, imageUrl, count, typeUnits }: CartItemTypes = item;
+  const dispatch = useDispatch<DispatchProperties>();
   const sumItem = count * price;
 
   const handleRemoveItem = () => {
@@ -20,7 +21,11 @@ const CartItem: React.FC<CartItemType> = ({ item }) => {
     dispatch(minusItem({ id }));
   };
   const handlePlusItem = () => {
-    dispatch(addItem({ id }));
+    dispatch(
+      addItem({
+        id,
+      } as CartItemTypes),
+    );
   };
   return (
     <div className='cart__item'>

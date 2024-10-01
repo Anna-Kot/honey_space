@@ -6,10 +6,12 @@ import { ReactComponent as TrashIcon } from '../../assets/trash_icon.svg';
 import { ReactComponent as CartIcon } from '../../assets/cart_icon_black.svg';
 import { ReactComponent as ArrowBack } from '../../assets/arrow_back.svg';
 import { Link } from 'react-router-dom';
+import { DispatchProperties, RootState } from '../../redux/store';
+import { CartItemTypes } from '../../helpers/interfaces';
 
 const Cart = () => {
-  const { items, totalPrice, totalCount } = useSelector((state: any) => state.cart);
-  const dispatch = useDispatch();
+  const { items, totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch<DispatchProperties>();
   const handleClearCart = () => {
     if (totalPrice > 0) {
       if (window.confirm('Are you sure you want to clear?')) {
@@ -31,7 +33,7 @@ const Cart = () => {
           </div>
         </div>
         <div className='cart__items'>
-          {items.map((item: any) => (
+          {items.map((item: CartItemTypes) => (
             <CartItem key={item.id} item={item} />
           ))}
         </div>

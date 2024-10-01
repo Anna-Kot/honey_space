@@ -12,17 +12,19 @@ import { sortingList } from '../../helpers/consts';
 
 import { setCategoryId, setCurrentPage, setFilters } from './../../redux/slices/filterSlice';
 import { fetchProducts } from '../../redux/slices/productsSlice';
+import { DispatchProperties, RootState } from '../../redux/store';
+import { APIProductParams, SortingType } from '../../helpers/interfaces';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<DispatchProperties>();
   const navigate = useNavigate();
   const location = useLocation();
   const isMounted = useRef(false);
 
   const { categoryId, sortType, currentPage, searchValue } = useSelector(
-    (state: any) => state.filters,
+    (state: RootState) => state.filters,
   );
-  const { items, status, typeError } = useSelector((state: any) => state.productsList);
+  const { items, status, typeError } = useSelector((state: RootState) => state.productsList);
 
   const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
@@ -32,29 +34,41 @@ const Home: React.FC = () => {
   };
 
   const getProducts = async () => {
-    const params = {
-      sortCategory: categoryId > 0 ? `&category=${categoryId}` : '',
-      search: searchValue ? `&search=${searchValue.toLowerCase()}` : '',
-      currentPage,
-      sortType,
-    };
-    dispatch(fetchProducts(params));
+    const sortCategory = categoryId > 0 ? `&category=${categoryId}` : '';
+    const search = searchValue ? `&search=${searchValue.toLowerCase()}` : '';
+    const sortBy = sortType.sortProperty;
+    dispatch(fetchProducts({ sortBy, sortCategory, search, currentPage }));
   };
 
   useEffect(() => {
     if (location.search) {
-      const params = qs.parse(location.search.substring(1));
-      const sortType = sortingList.find((obj) => obj.sortProperty === params.sortProperty);
+      const params = qs.parse(location.search.substring(1)) as unknown as APIProductParams;
+      const sortType = sortingList.find((obj: SortingType) => obj.sortProperty === params.sortBy);
+
       dispatch(
         setFilters({
-          ...params,
-          sortType,
-          categoryId: Number(params.categoryId),
-          currentPage: Number(params.currentPage),
-          search: searchValue,
+          categoryId: params.sortCategory ? Number(params.sortCategory) : 0,
+          currentPage: params.currentPage,
+          searchValue: params.search,
+          sortType: sortType || sortingList[0],
         }),
       );
     }
+    // if (location.search) {
+    //   const params = qs.parse(location.search.substring(1));
+    //   const sortType = sortingList.find(
+    //     (obj: SortingType) => obj.sortProperty === params.sortProperty,
+    //   );
+    //   dispatch(
+    //     setFilters({
+    //       sortType,
+    //       // search: params.search,
+    //       categoryId: Number(params.categoryId),
+    //       currentPage: Number(params.currentPage),
+    //       // search: searchValue,
+    //     }),
+    //   );
+    // }
     isMounted.current = true;
   }, []);
 
@@ -77,7 +91,7 @@ const Home: React.FC = () => {
       navigate(`/?${queryString}`);
     }
     if (!window.location.search) {
-      fetchProducts();
+      dispatch(fetchProducts({} as APIProductParams));
     }
   }, [categoryId, sortType, currentPage, searchValue]);
 

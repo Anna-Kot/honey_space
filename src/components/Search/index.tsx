@@ -7,11 +7,12 @@ import { ReactComponent as SearchIcon } from '../../assets/search_icon.svg';
 import { ReactComponent as ClearSearchIcon } from '../../assets/clear_search_icon.svg';
 
 import styles from './Search.module.scss';
+import { DispatchProperties } from '../../redux/store';
 
 const Search: React.FC = () => {
   const [value, setValue] = useState('');
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<DispatchProperties>();
   const inputRef = useRef<HTMLInputElement>(null);
   const handleClearSearch = () => {
     dispatch(setSearchValue(''));
