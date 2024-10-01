@@ -20,6 +20,10 @@ export type SortingType = {
   sortProperty: SortPropertyEnum;
 };
 
+export type SortProps = {
+  sortType: SortingType;
+};
+
 export type CategoriesProps = {
   categoryId: number;
   onChangeCategory: (i: number) => void;

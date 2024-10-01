@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import qs from 'qs';
@@ -13,7 +13,7 @@ import { sortingList } from '../../helpers/consts';
 import { setCategoryId, setCurrentPage, setFilters } from './../../redux/slices/filterSlice';
 import { fetchProducts } from '../../redux/slices/productsSlice';
 import { DispatchProperties, RootState } from '../../redux/store';
-import { APIProductParams, SortingType } from '../../helpers/interfaces';
+import { APIProductParams, ProductTypes, SortingType } from '../../helpers/interfaces';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch<DispatchProperties>();
@@ -29,9 +29,9 @@ const Home: React.FC = () => {
   const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
-  const onChangeCategory = (id: number) => {
+  const onChangeCategory = useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   const getProducts = async () => {
     const sortCategory = categoryId > 0 ? `&category=${categoryId}` : '';
@@ -40,69 +40,54 @@ const Home: React.FC = () => {
     dispatch(fetchProducts({ sortBy, sortCategory, search, currentPage }));
   };
 
-  useEffect(() => {
-    if (location.search) {
-      const params = qs.parse(location.search.substring(1)) as unknown as APIProductParams;
-      const sortType = sortingList.find((obj: SortingType) => obj.sortProperty === params.sortBy);
+  // useEffect(() => {
+  //   if (location.search) {
+  //     const params = qs.parse(location.search.substring(1)) as unknown as APIProductParams;
+  //     const sortType = sortingList.find((obj: SortingType) => obj.sortProperty === params.sortBy);
 
-      dispatch(
-        setFilters({
-          categoryId: params.sortCategory ? Number(params.sortCategory) : 0,
-          currentPage: params.currentPage,
-          searchValue: params.search,
-          sortType: sortType || sortingList[0],
-        }),
-      );
-    }
-    // if (location.search) {
-    //   const params = qs.parse(location.search.substring(1));
-    //   const sortType = sortingList.find(
-    //     (obj: SortingType) => obj.sortProperty === params.sortProperty,
-    //   );
-    //   dispatch(
-    //     setFilters({
-    //       sortType,
-    //       // search: params.search,
-    //       categoryId: Number(params.categoryId),
-    //       currentPage: Number(params.currentPage),
-    //       // search: searchValue,
-    //     }),
-    //   );
-    // }
-    isMounted.current = true;
-  }, []);
+  //     dispatch(
+  //       setFilters({
+  //         categoryId: params.sortCategory ? Number(params.sortCategory) : 0,
+  //         currentPage: params.currentPage,
+  //         searchValue: params.search,
+  //         sortType: sortType || sortingList[0],
+  //       }),
+  //     );
+  //   }
+  //   isMounted.current = true;
+  // }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getProducts();
   }, [categoryId, sortType.sortProperty, currentPage, searchValue]);
 
-  useEffect(() => {
-    if (isMounted.current) {
-      const params = {
-        sortProperty: sortType.sortProperty,
-        categoryId,
-        currentPage,
-        search: searchValue,
-      };
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //     const params = {
+  //       sortProperty: sortType.sortProperty,
+  //       categoryId,
+  //       currentPage,
+  //       search: searchValue,
+  //     };
 
-      const queryString = qs.stringify(params, { skipNulls: true });
+  //     const queryString = qs.stringify(params, { skipNulls: true });
 
-      navigate(`/?${queryString}`);
-    }
-    if (!window.location.search) {
-      dispatch(fetchProducts({} as APIProductParams));
-    }
-  }, [categoryId, sortType, currentPage, searchValue]);
+  //     navigate(`/?${queryString}`);
+  //   }
+  //   if (!window.location.search) {
+  //     dispatch(fetchProducts({} as APIProductParams));
+  //   }
+  // }, [categoryId, sortType, currentPage, searchValue]);
 
   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
-  const products = items.map((obj: any) => <ProductBlock key={obj.id} {...obj} />);
+  const products = items.map((obj: ProductTypes) => <ProductBlock key={obj.id} {...obj} />);
 
   return (
     <div className='container'>
       <div className='content__top'>
         <Categories onChangeCategory={onChangeCategory} categoryId={categoryId} />
-        <Sort />
+        <Sort sortType={sortType} />
       </div>
       <h2 className='content__title'>Вся продукція</h2>
       {status === 'error' ? (

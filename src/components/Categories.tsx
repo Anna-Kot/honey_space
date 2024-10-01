@@ -5,7 +5,7 @@ import { categoriesList } from './../helpers/consts';
 import './../scss/app.scss';
 import { CategoriesProps } from '../helpers/interfaces';
 
-const Categories: React.FC<CategoriesProps> = ({ categoryId, onChangeCategory }) => {
+const Categories: React.FC<CategoriesProps> = React.memo(({ categoryId, onChangeCategory }) => {
   return (
     <div className='categories'>
       <ul>
@@ -21,6 +21,6 @@ const Categories: React.FC<CategoriesProps> = ({ categoryId, onChangeCategory })
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;

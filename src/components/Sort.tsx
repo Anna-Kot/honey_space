@@ -1,21 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './../scss/app.scss';
 import { sortingList } from './../helpers/consts';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setSortType } from './../redux/slices/filterSlice';
-import { SortingType } from '../helpers/interfaces';
-import { DispatchProperties, RootState } from '../redux/store';
+import { SortingType, SortProps } from '../helpers/interfaces';
+import { DispatchProperties } from '../redux/store';
 
-const Sort: React.FC = () => {
+const Sort: React.FC<SortProps> = React.memo(({ sortType }) => {
   const [openPopup, setOpenPopup] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
-  const sortType = useSelector((state: RootState) => state.filters.sortType);
   const dispatch = useDispatch<DispatchProperties>();
   const handleSortingType = (obj: SortingType) => {
     dispatch(setSortType(obj));
     setOpenPopup(false);
   };
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
@@ -62,6 +60,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;
