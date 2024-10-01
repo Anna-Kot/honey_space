@@ -5,19 +5,15 @@ import {
   CartItemTypes,
   MinusItem,
 } from '../../helpers/interfaces';
+import { getCartFromLS } from '../../utils/getCartFromLS';
+import { calculateTotals } from '../../utils/calculateTotals';
 
-function calculateTotals(items: CartItemTypes[]) {
-  const totalPrice = items.reduce((sum, obj: CalculationTypes) => sum + obj.price * obj.count, 0);
-  const totalCount = items.reduce((sum, obj: CalculationTypes) => sum + obj.count, 0);
-  return { totalPrice, totalCount };
-}
-
-const initialState: CartSliceTypes = {
-  items: [],
-  totalPrice: 0,
-  totalCount: 0,
-};
-
+const initialState: CartSliceTypes = getCartFromLS();
+// const initialState: CartSliceTypes = {
+//   items: cartData,
+//   totalPrice,
+//   totalCount,
+// };
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -52,6 +48,8 @@ const cartSlice = createSlice({
       state.items = [];
       state.totalPrice = 0;
       state.totalCount = 0;
+      const json = JSON.stringify([]);
+      localStorage.setItem('cart', json);
     },
   },
 });

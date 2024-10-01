@@ -118,7 +118,6 @@ export interface SetFilterTypes {
   sortType: SortingType;
 }
 
-// export type FetchProductsArgs = Record<string, string>;
 export type APIProductParams = {
   sortBy: string;
   sortCategory: string;

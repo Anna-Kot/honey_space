@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './../scss/app.scss';
 import logo from '../assets/logo_honey.png';
@@ -8,8 +8,21 @@ import { ReactComponent as CartIcon } from '../assets/cart_icon.svg';
 import { RootState } from '../redux/store';
 
 const Header: React.FC = () => {
-  const { totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
+  const { items, totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
   const { pathname } = useLocation();
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      if (items.length) {
+        const json = JSON.stringify(items);
+        localStorage.setItem('cart', json);
+      }
+    } else {
+      isMounted.current = true;
+    }
+  }, [items]);
+
   return (
     <div className='header'>
       <div className='container'>
