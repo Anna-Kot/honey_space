@@ -25,7 +25,7 @@ const SingleProduct: React.FC = () => {
     fetchProduct();
   }, []);
   if (!product) {
-    return <>Завантаження ....</>;
+    return <>Завантаження....</>;
   }
   return (
     <div className='container'>

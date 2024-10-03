@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CartItem from '../../components/CartItem';
-import { clearItems } from '../../redux/slices/cartSlice';
-import { ReactComponent as TrashIcon } from '../../assets/trash_icon.svg';
-import { ReactComponent as CartIcon } from '../../assets/cart_icon_black.svg';
-import { ReactComponent as ArrowBack } from '../../assets/arrow_back.svg';
+import CartItem from '../components/CartItem';
+import { clearItems } from '../redux/slices/cartSlice';
+import { ReactComponent as TrashIcon } from '../assets/trash_icon.svg';
+import { ReactComponent as CartIcon } from '../assets/cart_icon_black.svg';
+import { ReactComponent as ArrowBack } from '../assets/arrow_back.svg';
 import { Link } from 'react-router-dom';
-import { DispatchProperties, RootState } from '../../redux/store';
-import { CartItemType } from '../../helpers/interfaces';
+import { DispatchProperties, RootState } from '../redux/store';
+import { CartItemType } from '../helpers/interfaces';
 
 const Cart = () => {
   const { items, totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
