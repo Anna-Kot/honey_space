@@ -2,15 +2,18 @@
 
 .button {
   display: inline-block;
-  background-color: $orange;
+  background-color: $blue;
   border-radius: 30px;
   padding: 10px 20px;
   min-width: 100px;
   text-align: center;
   cursor: pointer;
   transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
-  border: 1px solid transparent;
   @include noselect();
+
+  @media (max-width: 1064px) {
+    padding: 7px 15px;
+  }
 
   &,
   span {
@@ -25,11 +28,12 @@
   }
 
   &:hover {
-    background-color: darken($orange, 8%);
+    background: darken($blue, 12%);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   }
 
   &:active {
-    background-color: darken($orange, 12%);
+    background: darken($blue, 12%);
     transform: translateY(1px);
   }
 
@@ -42,6 +46,12 @@
     min-width: 32px;
     padding: 0;
     border-width: 2px;
+
+    @media (max-width: 768px) {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+    }
   }
 
   &--black {
@@ -55,20 +65,20 @@
 
   &--outline {
     background-color: #fff;
-    border-color: $orange;
+    border: 1px solid $blue;
     &,
     span {
-      color: $orange;
+      color: $blue;
     }
 
     svg {
       path {
-        fill: $orange;
+        fill: $blue;
       }
     }
 
     &:hover {
-      background-color: $orange;
+      background-color: $blue;
 
       &,
       span {
@@ -83,7 +93,7 @@
     }
 
     &:active {
-      background-color: darken($orange, 8%);
+      background-color: darken($blue, 8%);
     }
   }
 
@@ -103,19 +113,23 @@
     span {
       font-weight: 600;
       font-size: 16px;
+
+      @media (max-width: 1064px) {
+        font-size: 15px;
+      }
     }
 
     &:hover {
       i {
         background-color: #fff;
-        color: $orange;
+        color: $blue;
       }
     }
 
     i {
       display: inline-block;
       border-radius: 30px;
-      background-color: $orange;
+      background-color: $blue;
       color: #fff;
       font-weight: 600;
       width: 22px;
@@ -134,6 +148,8 @@
     align-items: center;
     line-height: 23px;
     padding: 12px 25px;
+    border: none;
+    width: max-content;
 
     svg {
       margin-right: 8px;
